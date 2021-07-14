@@ -9,13 +9,21 @@ import Console from "./pages/console";
 
 // owrk on this
 
+// make console variable take stuff
+// make username and password states here
+// changestate and usestate and stuff
+// damn boi
+
 function App() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <Router>
       <Switch>
         <Route exact path="/" component={Home}/>
-        <Route exact path="/login" component={Login}/>
-        <Route exact path="/console" component={Console}/>
+        <Route exact path="/login" component={() => <Login setUsername={ setUsername } setPassword={ setPassword } username={username} password={password}/>}/>
+        <Route exact path="/console" component={() => <Console username={ username } password={ password } />}/>
       </Switch>
     </Router>
   );

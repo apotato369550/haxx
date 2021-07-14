@@ -32,7 +32,6 @@ app.use(session({
     }
 }))
 
-
 const db = mysql.createConnection({
     user: "root",
     host: "localhost",
@@ -40,3 +39,21 @@ const db = mysql.createConnection({
     database: "haxx_database"
 })
 
+app.post("/login", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    db.query("SELECT * FROM users WHERE username=? AND password=?", 
+    [username, password],
+    (err, result) => {
+        if(err || !result){
+            console.log(err);
+            return false;
+        }
+        return true;
+    })
+})
+
+app.listen(3001, () => {
+    console.log("Server is running on port 3001 lmao")
+})
