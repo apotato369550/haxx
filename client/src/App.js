@@ -22,7 +22,7 @@ function App() {
     <Router>
       <Switch>
         <Route exact path="/" component={Home}/>
-        <Route exact path="/login" component={() => <Login setUsername={ setUsername } setPassword={ setPassword } username={username} password={password}/>}/>
+        <Route exact path="/login" component={() => <Login username={ username } password={ password } setUsername={ setUsername } setPassword={ setPassword } />}/>
         <Route exact path="/console" component={() => <Console username={ username } password={ password } />}/>
       </Switch>
     </Router>
