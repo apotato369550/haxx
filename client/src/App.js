@@ -77,21 +77,13 @@ function App() {
       <Switch>
         <Route exact path="/" render={() => <Home />} />
         <Route exact path="/login" render={() => <Login setUsername={setUsername} setPassword={setPassword} username={username} password={password}/>} />
-    
+        <Route exact path="/console" render={() => <Console username={username} password={password} />}/>
       </Switch>
     </Router>
    // this works
    // figure out why it aint working with the router...
    // search up that old tutorial. that might give us a lead
 
-   /*
-    <Login 
-      username={username} 
-      password={password} 
-      setUsername={setUsername} 
-      setPassword={setPassword}
-    />
-    */
     // test this tomorrow
   );
 }

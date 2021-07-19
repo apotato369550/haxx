@@ -6,7 +6,7 @@ const Login = ({ username, password, setUsername, setPassword }) => {
     let history = useHistory();
 
     const usernameHandler = (event) => {
-        console.log("Command Handler: " + event.target.value)
+        console.log("Username Handler: " + event.target.value)
         setUsername(event.target.value);
         return;
     }
@@ -15,6 +15,7 @@ const Login = ({ username, password, setUsername, setPassword }) => {
     // bind the shit?
 
     const passwordHandler = (event) => {
+        console.log("Password Handler: " + event.target.value)
         setPassword(event.target.value);
         return;
     }
