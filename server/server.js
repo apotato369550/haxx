@@ -54,6 +54,44 @@ app.post("/login", (req, res) => {
     })
 })
 
+app.post("/login", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+
+    db.query(
+        "SELECT * FROM users WHERE username=? AND password=?",
+        [username, password],
+        (err, result) => {
+            if(err || !result){
+                return false;
+            }
+            return true;
+        }
+    )
+})
+
+app.post("/command", (req, res) => {
+    const command = req.body.command;
+    const tokens = command.split(" ");
+    const { userId } = req.session;
+    // figure out how to set session variables
+    if(userId){
+        db.query(
+            "SELECT * FROM users WHERE id=?",
+            userId,
+            (err, result) => {
+                if(err){
+                    return "An error occured while processing your command";
+                }
+            }
+        );
+    } else {
+        return "You are not logged in.";
+    }
+
+    return "You are logged in";
+})
+
 app.listen(3001, () => {
     console.log("Server is running on port 3001 lmao")
 })

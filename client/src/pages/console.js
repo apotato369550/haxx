@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom'
+import CommandPrompt from './components/CommandPrompt';
+import CommandTerminal from './components/CommandTerminal';
 
 const Console = (username, password) => {
-    axios.post("http://localhost:3001/register", {
+    axios.post("http://localhost:3001/login", {
         username: username,
         password: password
     }).then((response) => {
@@ -13,9 +15,15 @@ const Console = (username, password) => {
         }
     })
 
+    const [command, setCommand] = useState("");
+    const [logs, setLogs] = useState([]);
+
+    // add props to the components
+
     return (
         <div>
-            Welcome to console page
+            <CommandTerminal />
+            <CommandPrompt />
         </div>
     )
 }
