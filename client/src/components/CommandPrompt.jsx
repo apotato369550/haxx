@@ -18,7 +18,7 @@ const CommandPrompt = (command, setCommand, logs, setLogs) => {
     return (
         <div>
             <button type="button" onClick={submitHandler}></button>
-            <input type="text" value={command} onChange={setCommand} />
+            <input type="text" onChange={setCommand} />
         </div>
     )
 }

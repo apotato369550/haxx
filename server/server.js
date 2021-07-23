@@ -38,34 +38,27 @@ const db = mysql.createConnection({
     password: "",
     database: "haxx_database"
 })
-
+// why is this not working?
 app.post("/login", (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
+    // username and password are undefined here
+    // req.body is undefined... figure out why
+    // check out the original page
+    let username = req.body.username;
+    let password = req.body.password;
 
-    db.query("SELECT * FROM users WHERE username=? AND password=?", 
-    [username, password],
-    (err, result) => {
-        if(err || !result){
-            console.log(err);
-            return false;
-        }
-        return true;
-    })
-})
 
-app.post("/login", (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
+    console.log("Username: " + username);
+    console.log("Password: " + password);
 
     db.query(
         "SELECT * FROM users WHERE username=? AND password=?",
-        [username, password],
+        ["admin", "1234"],
         (err, result) => {
             if(err || !result){
-                return false;
+                console.log(err)
+                res.send(false);
             }
-            return true;
+            res.send(true);
         }
     )
 })
