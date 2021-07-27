@@ -6,6 +6,7 @@ import CommandTerminal from '../components/CommandTerminal';
 
 // invalid parameters
 // THIS WORKS:DDDD
+// work on it
 const Console = ({ username, password }) => {
     
     axios.post("http://localhost:3001/login", {
@@ -29,8 +30,8 @@ const Console = ({ username, password }) => {
     return (
         <div>
             <p>Username: {username} Password: {password}</p>
-            <CommandTerminal />
-            <CommandPrompt />
+            <CommandTerminal command={command} setCommand={setCommand} logs={logs} setLogs={setLogs}/>
+            <CommandPrompt command={command} setCommand={setCommand} logs={logs} setLogs={setLogs}/>
         </div>
     )
 }
