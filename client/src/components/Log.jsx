@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const Log = ({ input, logs }) => {
-    const logId = logs.length + 1;
+const Log = ({ id, type, text, log }) => {
+    console.log(log);
     return (
         // work on this??
         // render a li element
         // server/consoles response
-        <li id={logId}>{input}</li>
+        // print out every property in the log object
+        <li id={id}>Type: {type} Text: {text} Log:</li>
     )
 }
 

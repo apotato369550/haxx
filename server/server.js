@@ -58,31 +58,92 @@ app.post("/login", (req, res) => {
                 console.log(err)
                 res.send(false);
             }
-            res.send(true);
+            res.send(result);
         }
     )
 })
 
 app.post("/command", (req, res) => {
-    const command = req.body.command;
-    const tokens = command.split(" ");
-    const { userId } = req.session;
-    // figure out how to set session variables
+    const input = req.body.command;
+    const tokens = input.split(" ");
+
+    const username = req.body.username;
+    const password = req.body.password;
+    const userId = req.body.id;
+
+    let response = [];
     if(userId){
         db.query(
-            "SELECT * FROM users WHERE id=?",
+            "SELECT * FROM users WHERE username=? AND password=? AND id=?",
             userId,
             (err, result) => {
                 if(err){
-                    return "An error occured while processing your command";
+                    let error = {
+                        id: Math.random(),
+                        type: "error",
+                        text: "An error occured while processing your input"
+                    }
+                    response.push(error)
+                    // fix id and keying system
+
+                    // res.send("An error occured while processing your input");
+                    res.send(response);
+                    return;
+                } else {
+                    let error = {
+                        id: Math.random(),
+                        type: "error",
+                        text: "You are not logged in"
+                    }
+                    response.push(error)
+
+                    // res.send("You are not logged in.");
+                    res.send(response)
+                    return;
                 }
             }
         );
-    } else {
-        return "You are not logged in.";
-    }
+    } 
 
-    return "You are logged in";
+    let message = {
+        id: Math.random(),
+        type: "response",
+        text: "You are logged in."
+    }
+    response.push(message)
+    // res.write("You are logged in. input: " + input + " Command: " + tokens[0] + " ");
+
+    const command = tokens[0];
+
+    if(command.toLowerCase() == "print"){
+        let text = "";
+        for(let i = 1; i < tokens.length; i++){
+            text += tokens[i];
+            if(i <= tokens.length - 1){
+                text += " ";
+            }
+        }
+        let print = {
+            id: Math.random(),
+            type: "print",
+            text: text
+        }
+        response.push(print);
+        // res.write(text);
+    } else {
+        let error = {
+            id: Math.random(),
+            type: "error",
+            text: "Sorry. '" + command + "' is not recognized as a valid command"
+        }
+        response.push(error)
+        // res.write("<br> Sorry. '" + command + "' is not recognized as a valid command")
+    }
+    // test this
+    res.send(response);
+    res.end();
+
+    return;
 })
 
 app.listen(3001, () => {

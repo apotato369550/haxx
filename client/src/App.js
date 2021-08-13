@@ -40,6 +40,7 @@ const routes = [
 function App() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [id, setId] = useState('');
   
   // get rid of the router, try putting only login component and see if it works.
   // try rendering the routes w/ the method in the tutorial
@@ -77,7 +78,7 @@ function App() {
       <Switch>
         <Route exact path="/" render={() => <Home />} />
         <Route exact path="/login" render={() => <Login setUsername={setUsername} setPassword={setPassword} username={username} password={password}/>} />
-        <Route exact path="/console" render={() => <Console username={username} password={password} />}/>
+        <Route exact path="/console" render={() => <Console username={username} password={password} id={id} setId={setId} />}/>
       </Switch>
     </Router>
    // this works

@@ -7,8 +7,9 @@ import CommandTerminal from '../components/CommandTerminal';
 // invalid parameters
 // THIS WORKS:DDDD
 // work on it
-const Console = ({ username, password }) => {
+const Console = ({ username, password, id, setId }) => {
     
+    // change how thi handles responses??
     axios.post("http://localhost:3001/login", {
         username: username,
         password: password
@@ -17,6 +18,8 @@ const Console = ({ username, password }) => {
             console.log("Account does not exist");
             return <Redirect to="/login"/>
         }
+        setId(response.id);
+        console.log(response.id)
     })
     
    // check if username and password accessible
@@ -30,7 +33,7 @@ const Console = ({ username, password }) => {
     return (
         <div>
             <p>Username: {username} Password: {password}</p>
-            <CommandTerminal command={command} setCommand={setCommand} logs={logs} setLogs={setLogs}/>
+            <CommandTerminal command={command} setCommand={setCommand} logs={logs} setLogs={setLogs} username={username} password={password} id={id} />
             <CommandPrompt command={command} setCommand={setCommand} logs={logs} setLogs={setLogs}/>
         </div>
     )
